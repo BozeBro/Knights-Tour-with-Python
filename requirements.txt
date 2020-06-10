@@ -1,0 +1,4 @@
+Python 3
+Selenium 2
+Chrome webdriver https://sites.google.com/a/chromium.org/chromedriver/downloads 
+  For the webdriver(set the webdriver into PATH or inside your program webdriver.Chrome(executable_path='path/chromedriver.exe'))
