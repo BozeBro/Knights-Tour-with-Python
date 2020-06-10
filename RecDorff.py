@@ -1,7 +1,9 @@
 from collections import defaultdict
 
 
-def dorffer(posX=0, posY=0, vertical=8, horizon=8, oBoard=None):
+def dorffer(posX=0, posY=0, vertical=8, horizon=8, oBoard=None, n=None):
+    if n:
+        vertical = horizon = n
     dx = [-2, -1, 1, 2, -2, -1, 1, 2]
     dy = [1, 2, 2, 1, -1, -2, -2, -1]
     moves = get_moves(horizon, vertical, dx, dy)
@@ -13,11 +15,14 @@ def dorffer(posX=0, posY=0, vertical=8, horizon=8, oBoard=None):
         if __name__ != "__main__":
             oBoard[cur_y][cur_x].click()
         for x, y in moves[(cur_x, cur_y)]:
+            # Getting each neighbor of current square
             nx = cur_x + x
             ny = cur_y + y
             if board[ny][nx] == 0:
+                
                 n_count = 0
                 for mx, my in moves[(nx, ny)]:
+                    # Getting the amount of neighbors per neighbor of the current square
                     ex = nx + mx
                     ey = ny + my
                     if board[ey][ex] == 0:
