@@ -2,6 +2,9 @@ from collections import defaultdict
 
 
 def dorffer(posX=0, posY=0, vertical=8, horizon=8, oBoard=None, n=None):
+    """
+    Wrapper that sets up the variables for dorff()
+    """
     if n:
         vertical = horizon = n
     dx = [-2, -1, 1, 2, -2, -1, 1, 2]
@@ -10,6 +13,9 @@ def dorffer(posX=0, posY=0, vertical=8, horizon=8, oBoard=None, n=None):
     board = [[0 for i in range(horizon)] for j in range(vertical)]
 
     def dorff(cur_x=posX, cur_y=posY, count=1):
+        """
+        The function doing the Warnsdorff Algorithm
+        """
         inline = []  # priority queue
         board[cur_y][cur_x] = count
         if __name__ != "__main__":
@@ -51,6 +57,9 @@ def dorffer(posX=0, posY=0, vertical=8, horizon=8, oBoard=None, n=None):
 
 
 def printing(flat, stand, cb):
+    """
+    Prints the board in a nice, board-like way
+    """
     for col in range(stand):
         for row in range(flat):
             print(cb[col][row], end=' ')
@@ -59,6 +68,9 @@ def printing(flat, stand, cb):
 
 
 def get_moves(horizon, vertical, dx, dy):
+    """
+    Obtains the legal moves for each square
+    """
     moves = defaultdict(list)
     for i in range(horizon):
         for j in range(vertical):
