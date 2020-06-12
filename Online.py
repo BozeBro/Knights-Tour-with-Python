@@ -6,7 +6,7 @@ driver = webdriver.Chrome()
 driver.get('http://www.maths-resources.com/knights/')
 time.sleep(1)
 driver.fullscreen_window()
-time.sleep(1)
+
 
 # wait for elements to pop on the screen. Random time to wait.
 
@@ -15,6 +15,8 @@ posY = 0
 # Position of knight on the board
 cols, rows = 25, 25
 n = 25
+if n:
+    cols = row = n
 #n for if it is square. cols, rows give more control of size.
 
 
@@ -41,5 +43,5 @@ tour.kTour()
 
 dorffer(posX, posY, cols, rows, oBoard=onlineBoard)
 
-k = input('you done?')
+time.sleep(1)
 driver.quit()
