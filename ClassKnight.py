@@ -18,10 +18,15 @@ Then you see which combination led to 7 cents which is 1 nickel and 2 pennies.
 
 
 class Knight:
-    def __init__(self, n=8, x=0, y=0, scraper=None):
+    def __init__(self, rows=8, columns=8, n=8, x=0, y=0, scraper=None):
         self.n = n
+        if self.n:
+            self.rows = self.columns = self.n
+        else:
+            self.rows = rows
+            self.columns = columns
         # square board size
-        self.__board = [[0 for row in range(n)] for column in range(n)]
+        self.__board = [[0 for row in range(self.rows)] for column in range(self.columns)]
         self.x = x
         self.y = y
         # position of the knight
@@ -46,8 +51,8 @@ class Knight:
         """
         Will print the board in a nice square format
         """
-        for col in range(self.n):
-            for row in range(self.n):
+        for col in range(self.columns):
+            for row in range(self.rows):
                 print(self.__board[col][row], end=' ')
             print()
 
@@ -66,8 +71,8 @@ class Knight:
         for x, y in self.__MOVES:
             temp_x, temp_y = cur_x + x, cur_y + y
 
-            if 0 <= temp_x < self.n and \
-                    0 <= temp_y < self.n and \
+            if 0 <= temp_x < self.rows and \
+                    0 <= temp_y < self.columns and \
                     self.__board[temp_y][temp_x] == 0:
                 """
                 if statement checks if a possible move is legal (Doesn't go off the board) or
@@ -80,7 +85,7 @@ class Knight:
                     return True
                     # if true then the tour is completed and we are done
 
-        if count == self.n ** 2:
+        if count == self.rows * self.columns:
             # the actual condition that will lead to the completion of the tour
             # ALl squares have been visited
             return True

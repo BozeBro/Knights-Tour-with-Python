@@ -1,6 +1,7 @@
 from selenium import webdriver
 from ClassKnight import Knight
 from RecDorff import *
+import argparse
 
 driver = webdriver.Chrome()
 driver.get('http://www.maths-resources.com/knights/')
@@ -35,10 +36,10 @@ onlineBoard = [[driver.find_element_by_id('c' + str(col) + 'x' + str(row))
                for col in range(cols)]
 # Store online boxes in a list that will correspond to ClassKnight.__board
 
-'''
+
 tour = Knight(n, scraper=onlineBoard)
 tour.kTour()
-'''
+
 # Uncomment to use the Backtracking Algorithm
 
 dorffer(posX, posY, cols, rows, oBoard=onlineBoard)
