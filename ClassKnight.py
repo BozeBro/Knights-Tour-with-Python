@@ -1,3 +1,22 @@
+"""
+Backtracking is a brute force algorithm that utilizes dynammic programming to be faster
+than pure brute force. It tries legal, possible moves at random when it reaches a dead - end,
+it will backtrack to the previous and try another move. The function will never choose that move again
+from that square since all possible combination from the move led to a dead end.
+
+Example of Backtracking:
+You are stuck in a maze and trying to get out. You go down a certain path but it leads to a dead end.
+You backtrack to before you entered the path and then,
+You mark that path with a rock so you do not go down that path again, because you know it will not lead
+to the exit.
+
+Example of Brute Force:
+You have 10 coins, 2 quarters, 2 pennies, 4 dimes, and 2 nickels. Find what combination leads to 7 cents
+In Brute Force, you find all possible combinations of the coins.
+Then you see which combination led to 7 cents which is 1 nickel and 2 pennies.
+"""
+
+
 class Knight:
     def __init__(self, n=8, x=0, y=0, scraper=None):
         self.n = n
@@ -6,7 +25,7 @@ class Knight:
         self.x = x
         self.y = y
         # position of the knight
-        self.__moves = ((2, 1), (1, 2), (-1, 2), (-2, 1),
+        self.__MOVES = ((2, 1), (1, 2), (-1, 2), (-2, 1),
                         (-2, -1), (-1, -2), (1, -2), (2, -1))
         # legal moves of the knight
         self.__onlineBoard = scraper
@@ -44,7 +63,7 @@ class Knight:
             # Clicks the square if using Online.py
             self.__onlineBoard[cur_y][cur_x].click()
 
-        for x, y in self.__moves:
+        for x, y in self.__MOVES:
             temp_x, temp_y = cur_x + x, cur_y + y
 
             if 0 <= temp_x < self.n and \
