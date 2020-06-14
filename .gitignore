@@ -1,5 +1,6 @@
 # Pycharm generated file
 .idea
+.__pycache__
 
 # Generated at runtime
 .debug.log
