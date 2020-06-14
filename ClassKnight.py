@@ -25,6 +25,7 @@ class Knight:
         else:
             self.rows = rows
             self.columns = columns
+
         # square board size
         self.__board = [[0 for row in range(self.rows)] for column in range(self.columns)]
         self.x = x
