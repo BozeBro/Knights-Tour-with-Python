@@ -1,0 +1,7 @@
+# Pycharm generated file
+.idea
+
+# Generated at runtime
+.debug.log
+.geckodriver.log
+
