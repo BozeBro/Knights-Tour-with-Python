@@ -31,10 +31,12 @@ def dorffer(posX=0, posY=0, vertical=8, horizon=8, oBoard=None, n=None):
         but square 2 has 4 neighbors and square 3 has 2 neighbors.
         The algorithm will move the knight to square 3 because it has the fewest amount of neighbors
         """
-        
-        inline = []  
-        # priority queue. Orders possible moves by fewest neighbors
+
+        in_line = []
+        # priority queue.
         board[cur_y][cur_x] = count
+        # Because we have traveled this square, mark it by the amount of squares we have now visited.
+        # if this is the second square we have seen, then mark board[y][x] = 2
         if __name__ != "__main__":
             """
             if __name__ != "__main__", then we are using this function in Online.py/ on the web.
@@ -49,31 +51,52 @@ def dorffer(posX=0, posY=0, vertical=8, horizon=8, oBoard=None, n=None):
                 
                 n_count = 0
                 for mx, my in moves[(nx, ny)]:
-                    # Getting the amount of neighboring square per neighboring square of the current square
-                    ex = nx + mx
-                    ey = ny + my
-                    if board[ey][ex] == 0:
+                    # Getting the amount of neighbors per neighbor of the current square
+                    n2x = nx + mx
+                    n2y = ny + my
+                    if board[n2y][n2x] == 0:
+                        # if statement makes sure the square has not been traversed yet
                         n_count += 1
 
-                inline.append((nx, ny, n_count))
-        inline.sort(key=lambda m: m[2])
+                in_line.append((nx, ny, n_count))
 
-        for x, y, c in inline:
-            if board[y][x] == 0:
-                if dorff(x, y, count + 1):
-                    return True
+        in_line.sort(key=lambda m: m[2])
+        # Orders the list by fewest neighbors (move for x, move for y, amount of neighbros)
+        for x, y, c in in_line:
+            # Will check each if it completes the Knights Tour(Visit all the squares once)
+            if dorff(x, y, count + 1):
+                return True
+                """
+                The recursive bulk of the function
+                It will iterate through the moves in in_line.
+                It will call the dorff() function again and will travel to a new square.
+                """
 
         if count == horizon * vertical:
             return True
+            # This signifies that all squares have been traversed once.
         board[cur_y][cur_x] = 0
+        """
+        If not true then it must be false
+        The only time the function will reach this part of the program is when
+        in_line is out of moves for this square to try.
+        In that case, we need to set this square back to zero 
+        (because the square did not lead to the answer and we cannot go forward, only backward)
+         and we must backtrack to the previous square
+        Backtracking means that move is not successful and to try the next move in in_line.
+        """
         if __name__ != "__main__":
+            """
+            Clicking will backtrack us to the previous square on the website we are scraping.
+            """
             oBoard[cur_y][cur_x].click()
         return False
 
     if dorff():
-        print('success')
         printing(horizon, vertical, board)
     else:
+        # we reach False if we tried all possible moves and no sequence solves the tour
+        # Easy example of failure is trying the knight's tour on a 3 x 3 board.
         print('Fail')
 
 
@@ -88,17 +111,18 @@ def printing(flat, stand, cb):
     print('\n')
 
 
-def get_moves(horizon, vertical, dx, dy):
+def get_moves(rows, columns, dx, dy):
     """
     Obtains the legal moves for each square
     """
     moves = defaultdict(list)
-    for i in range(horizon):
-        for j in range(vertical):
+    for i in range(rows):
+        for j in range(columns):
             for x, y in zip(dx, dy):
                 temp_x = j + x
                 temp_y = i + y
-                if 0 <= temp_x < horizon and 0 <= temp_y < vertical:
+                if 0 <= temp_x < rows and 0 <= temp_y < columns:
+                    # Makes sure the moves are not greater than the amount of rows or columns
                     moves[(j, i)].append((x, y))
     return moves
 

@@ -1,45 +1,52 @@
 from selenium import webdriver
 from ClassKnight import Knight
 from RecDorff import *
+import argparse
+import time
+
+parser = argparse.ArgumentParser(description='Knights Tour variables')
+parser.add_argument('-x', '--posX', type=int, default=0, metavar='', help='x position of the knight')
+parser.add_argument('-y', '--posY', type=int, default=0, metavar='', help='y position of the knight')
+parser.add_argument('-c', '--cols', type=int, default=8, metavar='', help='Height of the board')
+parser.add_argument('-r', '--rows', type=int, default=8, metavar='', help='Length of the board')
+parser.add_argument('-n', '--n', type=int, default=None, metavar='', help='square length of board if assigned')
+parser.add_argument('-a', '--algorithm', type=int, default=0,
+                    metavar='', help='Backtracking=0, \n '
+                                     'Warnsdorff Recursive Heuristic=1')
+args = parser.parse_args()
 
 driver = webdriver.Chrome()
 driver.get('http://www.maths-resources.com/knights/')
 time.sleep(1)
 driver.fullscreen_window()
-time.sleep(1)
 
 # wait for elements to pop on the screen. Random time to wait.
 
-posX = 23
-posY = 0
-# Position of knight on the board
-cols, rows = 25, 25
-n = 25
-#n for if it is square. cols, rows give more control of size.
+if args.n:
+    args.cols = args.row = args.n
+# n for if it is square. cols, rows give more control of size.
 
 
 driver.find_element_by_id('autoMove').click()
 
 driver.find_element_by_id('rankX').clear()
-driver.find_element_by_id('rankX').send_keys(f'{rows}')
+driver.find_element_by_id('rankX').send_keys(f'{args.rows}')
 
 driver.find_element_by_id('rankY').clear()
-driver.find_element_by_id('rankY').send_keys(f'{cols}')
+driver.find_element_by_id('rankY').send_keys(f'{args.cols}')
 
 driver.find_element_by_id('set').click()
 
 onlineBoard = [[driver.find_element_by_id('c' + str(col) + 'x' + str(row))
-                for row in range(rows)]
-               for col in range(cols)]
+                for row in range(args.rows)]
+               for col in range(args.cols)]
 # Store online boxes in a list that will correspond to ClassKnight.__board
 
-'''
-tour = Knight(n, scraper=onlineBoard)
-tour.kTour()
-'''
-# Uncomment to use the Backtracking Algorithm
+if args.algorithm == 0:
+    tour = Knight(args.row, args.cols, args.n, scraper=onlineBoard)
+    tour.kTour()
+elif args.algorithm == 1:
+    dorffer(args.posX, args.posY, args.cols, args.rows, oBoard=onlineBoard)
 
-dorffer(posX, posY, cols, rows, oBoard=onlineBoard)
-
-k = input('you done?')
+time.sleep(1)
 driver.quit()
