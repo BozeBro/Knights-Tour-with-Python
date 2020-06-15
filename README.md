@@ -12,4 +12,4 @@ The webdriver used in program uses Chrome's webdriver. If you want to use anothe
 You can use RecDorff or ClassKnight independently of Online if you want to see the board in your terminal instead of online
 
 # Downloading the Application, (for non-programmers).
-For windows - Download knights_tour.exe, and save it 
+For windows - Download zip file. Extract the file
