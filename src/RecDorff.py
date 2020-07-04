@@ -1,5 +1,4 @@
-from collections import defaultdict
-
+import util
 
 def dorffer(posX=0, posY=0, vertical=8, horizon=8, oBoard=None, n=None):
     """
@@ -11,14 +10,14 @@ def dorffer(posX=0, posY=0, vertical=8, horizon=8, oBoard=None, n=None):
         Example: (vertical=5, horizon=8)
         """
         vertical = horizon = n
-    dx = [-2, -1, 1, 2, -2, -1, 1, 2]
-    dy = [1, 2, 2, 1, -1, -2, -2, -1]
+    dx = [-2, -1, 1, 2, -2, -1,  1,  2]
+    dy = [1,   2, 2, 1, -1, -2, -2, -1]
     """
     The legal moves a knigh can make.
     Example: if knight moved dx[0] and dy[0], the knight moves 2 squares to the left and 1 square down
     The point (0, 0) is the top left corner so to move down, the y increases
     """
-    moves = get_moves(horizon, vertical, dx, dy)
+    moves = util.get_moves(horizon, vertical, dx, dy)
     board = [[0 for i in range(horizon)] for j in range(vertical)]
     
 
@@ -62,15 +61,15 @@ def dorffer(posX=0, posY=0, vertical=8, horizon=8, oBoard=None, n=None):
 
         in_line.sort(key=lambda m: m[2])
         # Orders the list by fewest neighbors (move for x, move for y, amount of neighbros)
-        for x, y, c in in_line:
+        for x, y, _ in in_line:
             # Will check each if it completes the Knights Tour(Visit all the squares once)
             if dorff(x, y, count + 1):
                 return True
-                """
-                The recursive bulk of the function
-                It will iterate through the moves in in_line.
-                It will call the dorff() function again and will travel to a new square.
-                """
+                
+                # The recursive bulk of the function
+                # It will iterate through the moves in in_line.
+                # It will call the dorff() function again and will travel to a new square.
+                
 
         if count == horizon * vertical:
             return True
@@ -93,38 +92,11 @@ def dorffer(posX=0, posY=0, vertical=8, horizon=8, oBoard=None, n=None):
         return False
 
     if dorff():
-        printing(horizon, vertical, board)
+        util.printing(horizon, vertical, board)
     else:
         # we reach False if we tried all possible moves and no sequence solves the tour
         # Easy example of failure is trying the knight's tour on a 3 x 3 board.
         print('Fail')
-
-
-def printing(flat, stand, cb):
-    """
-    Prints the board in a nice, board-like way
-    """
-    for col in range(stand):
-        for row in range(flat):
-            print(cb[col][row], end=' ')
-        print()
-    print('\n')
-
-
-def get_moves(rows, columns, dx, dy):
-    """
-    Obtains the legal moves for each square
-    """
-    moves = defaultdict(list)
-    for i in range(rows):
-        for j in range(columns):
-            for x, y in zip(dx, dy):
-                temp_x = j + x
-                temp_y = i + y
-                if 0 <= temp_x < rows and 0 <= temp_y < columns:
-                    # Makes sure the moves are not greater than the amount of rows or columns
-                    moves[(j, i)].append((x, y))
-    return moves
 
 
 if __name__ == "__main__":
