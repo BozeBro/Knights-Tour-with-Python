@@ -1,6 +1,10 @@
 # Pycharm generated file
 .idea
+__pycache__/
 
+venv/
+
+.vscode
 # Generated at runtime
 .debug.log
 .geckodriver.log
