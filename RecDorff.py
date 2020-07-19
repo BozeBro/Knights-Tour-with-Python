@@ -90,13 +90,14 @@ def dorffer(posX=0, posY=0, vertical=8, horizon=8, oBoard=None, n=None):
             """
             oBoard[cur_y][cur_x].click()
         return False
-
-    if dorff():
-        util.printing(horizon, vertical, board)
-    else:
-        # we reach False if we tried all possible moves and no sequence solves the tour
-        # Easy example of failure is trying the knight's tour on a 3 x 3 board.
-        print('Fail')
+        
+    if __name__ == "__main__":
+        if dorff():
+                util.printing(horizon, vertical, board)
+        else:
+            # we reach False if we tried all possible moves and no sequence solves the tour
+            # Easy example of failure is trying the knight's tour on a 3 x 3 board.
+            print('Fail')
 
 
 if __name__ == "__main__":

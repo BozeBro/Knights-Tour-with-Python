@@ -100,11 +100,12 @@ class Knight:
         Make sure to reset the square, so it is like we never visited the square
         We will try the next move in __moves.
         """
-        if self.__onlineBoard:
-            self.__onlineBoard[cur_y][cur_x].click()
-        return False
+        if __name__ == "__main__":
+            if self.__onlineBoard:
+                self.__onlineBoard[cur_y][cur_x].click()
+            return False
 
 
 if __name__ == '__main__':
-    tour = Knight(5, 3, 2)
+    tour = Knight(5, 5, 5)
     tour.kTour()
