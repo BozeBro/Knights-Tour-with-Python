@@ -10,10 +10,3 @@ This program imports RecDorff and ClassKnight and will either( depending on user
 The webdriver used in program uses Chrome's webdriver. If you want to use another web browser, make sure to download the webdriver online and store it in PATH, otherwise you will get a geckodriver error.
 
 You can use RecDorff or ClassKnight independently of Online if you want to see the board in your terminal instead of online
-
-# Downloading the Application, (for non-programmers).
-For windows - Download zip file and save it to the desktop. Extract the file. Locate knights_tour.exe in the dist folder. The path to it is 
-OnlineKnightsTour-master > OnlineKnightsTour-master > dist > knights_tour > knights_tour.exe. 
-Double click to run 
-  If you want to change size of board, get the path of knights_tour.exe, open up command prompt and paste the path 
-  Example: C:\\knights_tour\knights_tour.exe -c 25 - r 25. C:\\knights_tour\knights_tour.exe -h to get help
